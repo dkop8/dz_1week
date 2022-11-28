@@ -3,8 +3,8 @@
     require('../funct.php');
 
 
-    $user_name = 'Igor';
+    $userName = 'Igor';
 
-    if ( 1==1 ) {
+    if (1 == 1) {
         echo 'hi';
     }

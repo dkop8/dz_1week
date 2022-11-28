@@ -1,6 +1,6 @@
 <?php
-    function task1 (array $mas, bool $fl = false) {
-        if ($fl) {
+    function task1 (array $mas, bool $flAnswer = false) {
+        if ($flAnswer) {
             $st = '';
             for ($i = 0; $i < count($mas); $i++) {
                 $st .= "<p> $mas[$i] </p>";
@@ -23,40 +23,21 @@
                 echo 'Переданы неверные аргументы';
                 return 0;
             }
-        }               
+        }  
+        $st = implode(" " . $action . " ", $args);             
         switch ($action) {
             case '+' : 
-                for ($i = 0; $i < count($args); $i++) {
-                        if ($i != count($args) - 1) {
-                            $st .= $args[$i] . ' ' . $action . ' ';
-                        } else {
-                            $st .= $args[$i];
-                        }
-                    $calculation  = array_sum($args);
-                }
+                $calculation  = array_sum($args);
                 break;
             case '-' : 
-                for ($i = 0; $i < count($args); $i++) {
-                    if ($i != count($args) - 1) {
-                        $st .= $args[$i] . ' ' . $action . ' ';
-                    } else {
-                        $st .= $args[$i];
-                    }
-                }
                 $calculation  = array_shift($args) - array_sum($args); 
                 break;
             case '*' : 
-                for ($i = 0; $i < count($args); $i++) {
-                    if ($i != count($args) - 1) {
-                        $st .= $args[$i] . ' ' . $action . ' ';
-                    } else {
-                        $st .= $args[$i];
-                    }
-                }
                 $calculation = array_product($args); 
                 break; 
             case '/' : 
                     $calculation = $args[0];
+                    $st = '';
                     $st .= $args[0] . ' ' . $action . ' ';
                 
                 for ($i = 1; $i < count($args); $i++) {
@@ -92,13 +73,13 @@
         }
 
         echo "<table  border='1' align='center'>";
-                    for ($i = 1; $i <= $tr; $i++) {
-                        echo "<tr>";
-                        for ($j = 1; $j <= $td; $j++) {
-                                echo "<td width = '100' align = 'center'> " . $i * $j . "</td>\n";                          
-                        }
-                        echo "</tr>";
-                    }   
+            for ($i = 1; $i <= $tr; $i++) {
+                echo "<tr>";
+                for ($j = 1; $j <= $td; $j++) {
+                    echo "<td width = '100' align = 'center'> " . $i * $j . "</td>\n";                          
+                }
+                echo "</tr>";
+            }   
         echo "</table>";
         echo "<br><br> \n";
 
@@ -114,32 +95,27 @@
 
     function task6 () {
         $str_1 = 'Карл у Клары украл Кораллы';
-        $delChar = 'К';
-        echo str_replace($delChar, '', $str_1); 
+        echo str_replace('К', '', $str_1); 
     }
 
     function task7 () {
         $str = 'Две бутылки лимонада';
-        $s1 = 'Две';
-        $s2 = 'Три';
-        echo str_replace($s1, $s2, $str); 
-
+        echo str_replace('Две', 'Три', $str); 
     }
 
-    function task8 (string $name_file = 'file.txt') {
-            $text = "Hello again!";
-            $fp = fopen($name_file, "w");
-            fwrite($fp, $text);
-            
-            fclose($fp);
+    function task8 (string $fileName = 'file.txt') {
+        $text = "Hello again!";
+        file_put_contents($fileName, $text);
     }
 
-    function task9 (string $name_fl_r) {
-        if (file_exists($name_fl_r)) {
-            $fp = fopen($name_fl_r, "r");
-            $str_file = fgets($fp);
-                echo "$str_file <br>";
+    function task9 (string $fileName) {
+        if (file_exists($fileName)) {
+            $fp = fopen($fileName, "r");
+            $strFile = fgets($fp);
+                echo "$strFile <br>";
+                fclose($fp);
         } else {
-            echo "Файла $name_fl_r не сущесвует ";
+            trigger_error("Файла $fileName не существует");
+            return 0;
         }
     }
